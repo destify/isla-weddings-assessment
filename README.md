@@ -4,6 +4,24 @@ This repository goes with the assessment document you received by email. The doc
 
 Isla Weddings is a fictional company. Nothing here connects to real systems: the database runs in memory, and the CRM client is a stub.
 
+## Creating your repository
+
+Work in your own **private** copy of this repository, not in a fork (forks of a public repository are public).
+
+1. Click **Use this template** → **Create a new repository** at the top of this page.
+2. Choose your personal GitHub account as the owner, give it any name, and set the visibility to **Private**. Leave "Include all branches" unchecked.
+3. Go to **Settings** → **Collaborators** → **Add people** in your new repository and invite the reviewers. Their GitHub usernames are in your invitation email; they are not listed here.
+4. Clone your repository and continue with the setup below.
+
+Or with the GitHub CLI:
+
+```bash
+gh repo create <your-repo-name> --template destify/isla-weddings-assessment --private --clone
+gh api -X PUT repos/<your-user>/<your-repo-name>/collaborators/<reviewer-username>   # once per reviewer
+```
+
+Please keep your repository private, also after the process ends, and don't share the assessment or your answers publicly.
+
 ## Setup
 
 You need Node.js 20 or later.
@@ -49,7 +67,8 @@ Everything else, including refactoring other files, is your call. If you change 
 
 ## Submitting
 
-1. Commit as you go and push to `main` on this repository before the deadline. Your commit history is part of the review, so please don't squash it.
+1. Commit as you go and push to `main` on your private repository before the deadline. Your commit history is part of the review, so please don't squash it.
 2. Put your written answers (Parts 1 to 5) either in `SUBMISSION.md` or in a separate PDF or Markdown file attached to your email.
 3. Make sure `npm run check` passes on your final commit.
-4. Reply to your invitation email to tell us you're done.
+4. Check that every reviewer from your invitation email has been invited as a collaborator.
+5. Reply to your invitation email with your repository URL to tell us you're done.
