@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: booking-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: booking-api
+  template:
+    metadata:
+      labels:
+        app: booking-api
+    spec:
+      containers:
+        - name: booking-api
+          image: 123456789012.dkr.ecr.us-east-1.amazonaws.com/booking-api:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: STRIPE_SECRET_KEY
+              value: sk_live_51Hx...REDACTED
+            - name: DATABASE_URL
+              value: postgres://admin:Passw0rd@prod-db.cluster-abc.us-east-1.rds.amazonaws.com/booking
+          livenessProbe:
+            httpGet:
+              path: /health/deep    # checks Postgres, Stripe and the legacy CRM
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            failureThreshold: 1

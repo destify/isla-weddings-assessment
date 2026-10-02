@@ -1,0 +1,31 @@
+{
+  "name": "isla-weddings-assessment",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Isla Weddings technical assessment: booking pricing, Stripe webhook and payment detection.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "check": "npm run typecheck && npm run lint && npm test",
+    "detector": "tsx scripts/run-detector.ts"
+  },
+  "dependencies": {
+    "@electric-sql/pglite": "0.2.17",
+    "stripe": "17.7.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.22.0",
+    "@types/node": "22.13.10",
+    "eslint": "9.22.0",
+    "tsx": "4.19.3",
+    "typescript": "5.8.2",
+    "typescript-eslint": "8.26.1",
+    "vitest": "3.0.9"
+  }
+}

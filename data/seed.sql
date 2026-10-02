@@ -1,0 +1,72 @@
+-- Seed data. Timestamps are relative to now() so time-window queries work.
+
+INSERT INTO bookings (id, group_id, guest_email, nights, guests, nightly_rate, has_insurance, discount_cents, deposit_amount, payment_mode, status, created_at) VALUES
+('BK-1001', 'GRP-C', 'guest1001@example.com', 4, 2, 215.00, true, 0, 500.00, 'deposit', 'paid', now() - interval '30 hours'),
+('BK-1002', 'GRP-A', 'guest1002@example.com', 5, 2, 189.99, true, 0, 500.00, 'full', 'paid', now() - interval '28 hours'),
+('BK-1003', 'GRP-B', 'guest1003@example.com', 3, 2, 249.50, false, 0, 400.00, 'full', 'paid', now() - interval '20 hours'),
+('BK-1004', 'GRP-C', 'guest1004@example.com', 7, 3, 175.25, true, 2500, 600.00, 'deposit', 'paid', now() - interval '26 hours'),
+('BK-1005', 'GRP-A', 'guest1005@example.com', 6, 2, 199.00, true, 0, 500.00, 'full', 'paid', now() - interval '22 hours'),
+('BK-1006', 'GRP-B', 'guest1006@example.com', 4, 1, 310.00, true, 0, 750.00, 'full', 'paid', now() - interval '18 hours'),
+('BK-1007', 'GRP-C', 'guest1007@example.com', 5, 2, 229.00, false, 5000, 500.00, 'full', 'paid', now() - interval '16 hours'),
+('BK-1008', 'GRP-A', 'guest1008@example.com', 3, 2, 265.00, true, 0, 500.00, 'full', 'paid', now() - interval '14 hours'),
+('BK-1009', 'GRP-B', 'guest1009@example.com', 6, 2, 182.75, true, 3000, 500.00, 'full', 'paid', now() - interval '12 hours'),
+('BK-1010', 'GRP-C', 'guest1010@example.com', 4, 2, 240.00, false, 0, 500.00, 'full', 'cancelled', now() - interval '11 hours'),
+('BK-1011', 'GRP-A', 'guest1011@example.com', 5, 2, 205.00, true, 0, 500.00, 'full', 'confirmed', now() - interval '10 hours'),
+('BK-1012', 'GRP-B', 'guest1012@example.com', 3, 2, 199.00, false, 0, 300.00, 'deposit', 'paid', now() - interval '9 hours'),
+('BK-1013', 'GRP-C', 'guest1013@example.com', 7, 2, 289.00, true, 0, 800.00, 'full', 'paid', now() - interval '6 hours'),
+('BK-1014', 'GRP-A', 'guest1014@example.com', 4, 2, 215.00, true, 0, 500.00, 'full', 'paid', now() - interval '5 hours'),
+('BK-1015', 'GRP-B', 'guest1015@example.com', 5, 2, 199.00, true, 0, 500.00, 'deposit', 'pending', now() - interval '3 hours'),
+('BK-1016', 'GRP-C', 'guest1016@example.com', 4, 2, 225.00, true, 0, 500.00, 'full', 'paid', now() - interval '40 hours');
+
+INSERT INTO quotes (booking_id, total_cents, deposit_cents, accepted_at) VALUES
+('BK-1001', 92020, 50000, now() - interval '30 hours'),
+('BK-1002', 101645, 50000, now() - interval '28 hours'),
+('BK-1003', 74850, 40000, now() - interval '20 hours'),
+('BK-1004', 128762, 60000, now() - interval '26 hours'),
+('BK-1005', 127758, 50000, now() - interval '22 hours'),
+('BK-1006', 132680, 75000, now() - interval '18 hours'),
+('BK-1007', 109500, 50000, now() - interval '16 hours'),
+('BK-1008', 85065, 50000, now() - interval '14 hours'),
+('BK-1009', 114326, 50000, now() - interval '12 hours'),
+('BK-1010', 96000, 50000, now() - interval '11 hours'),
+('BK-1011', 109675, 50000, now() - interval '10 hours'),
+('BK-1012', 59700, 30000, now() - interval '9 hours'),
+('BK-1013', 216461, 80000, now() - interval '6 hours'),
+('BK-1014', 92020, 50000, now() - interval '5 hours'),
+('BK-1015', 106465, 50000, now() - interval '3 hours'),
+('BK-1016', 96300, 50000, now() - interval '40 hours');
+
+INSERT INTO stripe_charges (id, booking_id, amount_cents, status, created_at) VALUES
+('ch_0001', 'BK-1001', 50000, 'succeeded', now() - interval '30 hours' + interval '2 minutes'),
+('ch_0002', 'BK-1002', 101645, 'succeeded', now() - interval '28 hours' + interval '2 minutes'),
+('ch_0003', 'BK-1003', 40000, 'succeeded', now() - interval '20 hours' + interval '2 minutes'),
+('ch_0004', 'BK-1004', 60000, 'succeeded', now() - interval '26 hours' + interval '2 minutes'),
+('ch_0005', 'BK-1005', 50000, 'succeeded', now() - interval '22 hours' + interval '2 minutes'),
+('ch_0006', 'BK-1005', 77758, 'succeeded', now() - interval '22 hours' + interval '4 minutes'),
+('ch_0007', 'BK-1006', 75000, 'succeeded', now() - interval '18 hours' + interval '2 minutes'),
+('ch_0008', 'BK-1007', 109500, 'succeeded', now() - interval '16 hours' + interval '2 minutes'),
+('ch_0009', 'BK-1008', 85065, 'failed', now() - interval '14 hours' + interval '2 minutes'),
+('ch_0010', 'BK-1008', 85065, 'succeeded', now() - interval '14 hours' + interval '4 minutes'),
+('ch_0011', 'BK-1009', 50000, 'succeeded', now() - interval '12 hours' + interval '2 minutes'),
+('ch_0012', 'BK-1011', 109675, 'failed', now() - interval '10 hours' + interval '2 minutes'),
+('ch_0013', 'BK-1012', 30000, 'succeeded', now() - interval '9 hours' + interval '2 minutes'),
+('ch_0014', 'BK-1013', 80000, 'succeeded', now() - interval '6 hours' + interval '2 minutes'),
+('ch_0015', 'BK-1014', 92020, 'succeeded', now() - interval '5 hours' + interval '2 minutes'),
+('ch_0016', 'BK-1016', 96300, 'succeeded', now() - interval '40 hours' + interval '2 minutes');
+
+INSERT INTO crm_payments (booking_id, amount, recorded_at) VALUES
+('BK-1001', 500.00, now() - interval '30 hours' + interval '2 minutes' + interval '30 seconds'),
+('BK-1002', 1016.45, now() - interval '28 hours' + interval '2 minutes' + interval '30 seconds'),
+('BK-1003', 400.00, now() - interval '20 hours' + interval '2 minutes' + interval '30 seconds'),
+('BK-1004', 600.00, now() - interval '26 hours' + interval '2 minutes' + interval '30 seconds'),
+('BK-1005', 500.00, now() - interval '22 hours' + interval '2 minutes' + interval '30 seconds'),
+('BK-1005', 777.58, now() - interval '22 hours' + interval '4 minutes' + interval '30 seconds'),
+('BK-1006', 750.00, now() - interval '18 hours' + interval '2 minutes' + interval '30 seconds'),
+('BK-1007', 1095.00, now() - interval '16 hours' + interval '2 minutes' + interval '30 seconds'),
+('BK-1008', 850.65, now() - interval '14 hours' + interval '4 minutes' + interval '30 seconds'),
+('BK-1009', 500.00, now() - interval '12 hours' + interval '2 minutes' + interval '30 seconds'),
+('BK-1012', 300.00, now() - interval '9 hours' + interval '2 minutes' + interval '30 seconds'),
+('BK-1013', 800.00, now() - interval '6 hours' + interval '2 minutes' + interval '30 seconds'),
+('BK-1014', 920.20, now() - interval '5 hours' + interval '2 minutes' + interval '30 seconds'),
+('BK-1014', 920.20, now() - interval '5 hours' + interval '2 minutes' + interval '90 seconds'),
+('BK-1016', 963.00, now() - interval '40 hours' + interval '2 minutes' + interval '30 seconds');
